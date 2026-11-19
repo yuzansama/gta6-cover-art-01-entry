@@ -351,14 +351,18 @@ function wireControls() {
     cyclePanelContent(design, selectedPanel, photos.length);
     refreshEverything();
   });
-  $('export-png-button').addEventListener('click', async () => {
-    say('Rendering PNG…');
-    say(`✓ Exported ${await exportCoverPng(design, photos)}`, true);
-  });
-  $('export-all-three-sizes-button').addEventListener('click', async () => {
-    say('Rendering 3 PNGs…');
-    say(`✓ Exported ${(await exportAllPostSizes(design, photos)).join(' · ')}`, true);
-  });
+  $('export-png-button').addEventListener('click', () => exportAndReport('Rendering PNG…', () => exportCoverPng(design, photos)));
+  $('export-all-three-sizes-button').addEventListener('click', () => exportAndReport('Rendering 3 PNGs…', async () => (await exportAllPostSizes(design, photos)).join(' · ')));
+}
+
+/** Runs an export and keeps the status line truthful: a rejected PNG encode used to leave "Rendering…" on screen. */
+async function exportAndReport(busyMessage, run) {
+  say(busyMessage);
+  try {
+    say(`✓ Exported ${await run()}`, true);
+  } catch (error) {
+    say(`Export failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 /** Photos can also be dropped anywhere on the page or pasted from the clipboard. */
