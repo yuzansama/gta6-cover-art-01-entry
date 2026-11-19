@@ -1,0 +1,6 @@
+[
+  { "name": "1-cover-neon-coast-1920x1080.jpg", "query": "?shot=cover&scene=neon-coast-landscape", "w": 1280, "h": 720 },
+  { "name": "2-editor-photo-loaded.jpg", "query": "?shot=editor&scene=editor-midnight-run", "w": 1280, "h": 720 },
+  { "name": "3-cover-boulevard-queen-1080x1350.jpg", "query": "?shot=cover&scene=boulevard-queen-portrait", "w": 1024, "h": 1280 },
+  { "name": "4-cover-pier-pressure-1080x1080.jpg", "query": "?shot=cover&scene=pier-pressure-square", "w": 1080, "h": 1080 }
+]

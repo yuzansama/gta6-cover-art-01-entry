@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast · GTA-style cover art maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="gta-style-cover-art-maker" class="app" data-about="your photos and a caption become multi-panel poster cover art with a sunset or neon grade, exported as PNG; runs offline, photos never leave this machine">
+  <aside class="sidebar">
+    <header class="brand">
+      <h1>Neon Coast</h1>
+      <p>Photos + caption → cover art PNG · offline</p>
+    </header>
+
+    <section class="step">
+      <h2><b>1</b> Your photos</h2>
+      <label id="photo-dropzone-add-your-own-photos" class="dropzone">
+        <input id="photo-file-input-multiple" type="file" accept="image/*" multiple hidden>
+        <strong>Add photos</strong> <span>click, drop or paste · one or several</span>
+      </label>
+      <div id="photo-tray-click-to-place-in-panel" class="tray" aria-label="Loaded photos"></div>
+    </section>
+
+    <section class="step">
+      <h2><b>2</b> Panels</h2>
+      <div id="panel-layout-picker" class="chips" role="group" aria-label="Panel layout"></div>
+      <div class="row">
+        <button id="shuffle-photos-and-crops" type="button">Shuffle</button>
+        <button id="auto-fill-panels-from-photos" type="button">Auto-fill</button>
+      </div>
+    </section>
+
+    <section class="step">
+      <h2><b>3</b> Caption</h2>
+      <input id="caption-title-input" type="text" maxlength="36" placeholder="Title" aria-label="Caption title">
+      <input id="caption-tagline-input" type="text" maxlength="40" placeholder="Tagline (optional)" aria-label="Caption tagline">
+      <div id="caption-lettering-style-picker" class="chips" role="group" aria-label="Lettering style"></div>
+    </section>
+
+    <section class="step">
+      <h2><b>4</b> Colour grade</h2>
+      <div id="sunset-neon-colour-grade-picker" class="chips" role="group" aria-label="Colour grade"></div>
+      <label class="slider">Grade <input id="colour-grade-strength" type="range" min="0" max="100" value="55"></label>
+      <label class="slider">Ink lines <input id="ink-outline-strength" type="range" min="0" max="100" value="75"></label>
+      <label class="check"><input id="per-panel-colour-mix" type="checkbox" checked> A different colour cast per panel</label>
+    </section>
+  </aside>
+
+  <main class="stage">
+    <div class="topbar">
+      <div id="post-size-picker-1080x1080-1080x1350-1920x1080" class="chips sizes" role="group" aria-label="Post size"></div>
+      <span class="spacer"></span>
+      <button id="export-all-three-sizes-button" type="button">All 3 sizes</button>
+      <button id="export-png-button" class="primary" type="button">Export PNG</button>
+    </div>
+    <div id="preview-frame" class="preview-frame">
+      <canvas id="live-cover-preview-drag-to-crop" aria-label="Live cover preview: drag a panel to position its photo, scroll to zoom"></canvas>
+    </div>
+    <div id="selected-panel-crop-controls" class="panelbar">
+      <span id="selected-panel-label" class="label">Panel 1</span>
+      <label class="slider">Zoom <input id="panel-photo-zoom" type="range" min="100" max="400" value="100"></label>
+      <button id="flip-panel-photo" type="button">Flip</button>
+      <button id="next-photo-or-scene-in-panel" type="button">Next photo / scene</button>
+      <span id="export-status" class="status" role="status">Drag a panel to position · scroll to zoom · click a photo to place it</span>
+    </div>
+  </main>
+</div>
+<script type="module" src="./src/cover-maker-editor.js"></script>
+</body>
+</html>

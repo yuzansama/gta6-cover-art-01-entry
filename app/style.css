@@ -1,0 +1,83 @@
+/* Neon Coast editor: a dark night-drive theme around a large live preview. */
+@font-face { font-family: "Anton"; src: url("./fonts/Anton-Regular.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "Pacifico"; src: url("./fonts/Pacifico-Regular.ttf") format("truetype"); font-display: block; }
+
+:root {
+  --night: #0d0720;
+  --panel: #170d33;
+  --panel-edge: #2c1a57;
+  --ink: #f6efff;
+  --muted: #a99bc9;
+  --pink: #ff3f9f;
+  --orange: #ffa23f;
+  --cyan: #3fe3f2;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--night); color: var(--ink); font: 13px/1.35 system-ui, "Segoe UI", sans-serif; }
+button, input { font: inherit; color: inherit; }
+
+.app { display: grid; grid-template-columns: 318px 1fr; height: 100%; }
+
+.sidebar { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; overflow-y: auto; background: linear-gradient(180deg, #1b0f3d, #0f0826); border-right: 1px solid var(--panel-edge); }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand h1 { margin: 0; font: 30px/1 "Anton", Impact, sans-serif; white-space: nowrap; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(180deg, #fff3a8 10%, var(--orange) 48%, var(--pink) 60%, #b3168c); -webkit-background-clip: text; background-clip: text; color: transparent; transform: skewX(-8deg); transform-origin: left; }
+.brand p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.2; }
+
+.step { display: flex; flex-direction: column; gap: 6px; padding: 7px 10px 9px; background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 10px; }
+.step h2 { margin: 0; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+.step h2 b { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 4px; border-radius: 50%; background: var(--pink); color: #fff; font-size: 11px; }
+
+.dropzone { display: block; padding: 9px 10px; border: 1.5px dashed var(--pink); border-radius: 8px; background: rgba(255, 63, 159, 0.08); cursor: pointer; text-align: center; }
+.dropzone strong { color: #fff; font-size: 14px; }
+.dropzone span { color: var(--muted); }
+.dropzone:hover, .dropzone.dragging { background: rgba(255, 63, 159, 0.2); }
+
+.tray { display: flex; gap: 6px; overflow-x: auto; min-height: 54px; padding-bottom: 2px; }
+.tray button { position: relative; flex: 0 0 auto; width: 52px; height: 52px; padding: 0; border: 2px solid var(--panel-edge); border-radius: 7px; background: #000 center / cover no-repeat; cursor: pointer; }
+.tray button.in-panel { border-color: var(--cyan); }
+.tray button .remove { position: absolute; top: -2px; right: -2px; width: 17px; height: 17px; border-radius: 50%; background: var(--night); color: #fff; font-size: 11px; line-height: 17px; text-align: center; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips button { padding: 5px 9px; border: 1px solid var(--panel-edge); border-radius: 999px; background: #21134a; cursor: pointer; }
+.chips button:hover { border-color: var(--cyan); }
+.chips button[aria-pressed="true"] { border-color: transparent; background: linear-gradient(90deg, var(--pink), var(--orange)); color: #1a0730; font-weight: 700; }
+.chips.sizes button { padding: 7px 12px; border-radius: 8px; }
+.chips.sizes button small { display: block; font-size: 10px; opacity: 0.75; font-weight: 400; }
+
+.row { display: flex; gap: 6px; }
+.row button, .panelbar button, .topbar > button { padding: 6px 12px; border: 1px solid var(--panel-edge); border-radius: 8px; background: #21134a; cursor: pointer; }
+.row button { flex: 1; }
+.row button:hover, .panelbar button:hover, .topbar > button:hover { border-color: var(--cyan); }
+
+input[type="text"] { width: 100%; padding: 7px 9px; border: 1px solid var(--panel-edge); border-radius: 8px; background: #0f0826; }
+input[type="text"]:focus { outline: 2px solid var(--pink); border-color: transparent; }
+#caption-title-input { font-weight: 700; font-size: 15px; }
+.slider { display: flex; align-items: center; gap: 8px; color: var(--muted); white-space: nowrap; }
+.slider input { flex: 1; min-width: 80px; accent-color: var(--pink); }
+.check { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.check input { accent-color: var(--pink); }
+
+.stage { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: radial-gradient(ellipse at 50% 0%, #2a1460 0%, var(--night) 70%); }
+.topbar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
+.spacer { flex: 1; }
+.topbar > button.primary { padding: 10px 22px; border: 0; background: linear-gradient(90deg, var(--pink), var(--orange)); color: #1a0730; font-weight: 800; font-size: 15px; box-shadow: 0 0 22px rgba(255, 63, 159, 0.55); }
+
+.preview-frame { flex: 1; display: grid; place-items: center; min-height: 0; padding: 4px 14px; overflow: hidden; }
+.preview-frame canvas { display: block; border-radius: 4px; box-shadow: 0 14px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08); cursor: grab; touch-action: none; }
+.preview-frame canvas.dragging { cursor: grabbing; }
+.preview-frame.dragging-file canvas { outline: 3px dashed var(--pink); }
+
+.panelbar { display: flex; align-items: center; gap: 10px; padding: 9px 14px 12px; }
+.panelbar .label { padding: 4px 10px; border-radius: 999px; background: var(--cyan); color: #06222a; font-weight: 700; white-space: nowrap; }
+.panelbar .slider { width: 190px; }
+.panelbar button { white-space: nowrap; }
+.status { flex: 1; min-width: 0; color: var(--muted); text-align: right; font-size: 12px; }
+.status.saved { color: var(--cyan); font-weight: 700; }
+
+/* Screenshot scenes (?shot=cover): the cover alone, drawn by the app at the size of the window. */
+body.shot-cover .sidebar, body.shot-cover .topbar, body.shot-cover .panelbar { display: none; }
+body.shot-cover .app { display: block; }
+body.shot-cover .stage { height: 100%; }
+body.shot-cover .preview-frame { padding: 0; }
+body.shot-cover .preview-frame canvas { border-radius: 0; box-shadow: none; }
